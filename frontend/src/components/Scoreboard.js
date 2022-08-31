@@ -1,14 +1,18 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import ListGroup from 'react-bootstrap/ListGroup';
+import '../styles.css';
 
-function Scoreboard({ wins, setWins, losses, setLosses, ties, setTies }) {
+function Scoreboard({ wins, losses, ties }) {
 
     return(
-        <Container>
-            <p>Your score!</p>
-            <p>Wins: {wins}</p>
-            <p>Losses: {losses}</p>
-            <p>Ties: {ties}</p>
+        <Container className='scoreboard mt-3'>
+            <ListGroup variant='flush'>
+                <ListGroup.Item className='fw-bold'>Your Score</ListGroup.Item>
+                <ListGroup.Item>Wins: {wins}</ListGroup.Item>
+                <ListGroup.Item>Losses: {losses}</ListGroup.Item>
+                <ListGroup.Item>Ties: {ties}</ListGroup.Item>
+            </ListGroup>
         </Container>
         
     );
