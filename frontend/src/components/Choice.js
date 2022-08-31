@@ -6,12 +6,9 @@ import Board from './Board';
 import Scoreboard from './Scoreboard';
 
 
-function Choice() {
+function Choice({ userId, wins, setWins, losses, setLosses, ties, setTies }) {
     const [showBoard, setShowBoard] = useState(false);
     const [choice, setChoice] = useState();
-    const [wins, setWins] = useState(0);
-    const [losses, setLosses] = useState(0);
-    const [ties, setTies] = useState(0);
 
     const xChoiceHandler = () => {
         setShowBoard(true);
@@ -21,6 +18,7 @@ function Choice() {
         setShowBoard(true);
         setChoice("O");
     }
+
     return (
         <>
         {!showBoard &&
@@ -44,19 +42,18 @@ function Choice() {
             <>
                 <Board 
                     choice={choice}
+                    userId={userId}
                     wins={wins}
                     setWins={setWins}
                     losses={losses}
                     setLosses={setLosses}
                     ties={ties}
-                    setTies={setTies}  />
+                    setTies={setTies}
+                    setShowBoard={setShowBoard} />
                 <Scoreboard 
                     wins={wins}
-                    setWins={setWins}
                     losses={losses}
-                    setLosses={setLosses}
-                    ties={ties}
-                    setTies={setTies} />
+                    ties={ties} />
             </>
         }
         </>

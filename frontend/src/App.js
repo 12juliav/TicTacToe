@@ -1,7 +1,6 @@
-import TicTacToe from './pages/TicTacToe';
+import TicTacToe from './TicTacToe';
 
 function App() {
-  global.__basedir = __dirname;
   return (
     <TicTacToe />
   );

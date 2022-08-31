@@ -4,8 +4,9 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import React, {useState, useEffect} from 'react';
 import Results from './Results';
 import "../styles.css";
+import Choice from './Choice';
 
-function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
+function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies, setShowBoard }) {
     const [boardStorage, setBoardStorage] = useState([]);
     const [boardStorage3x3, setBoardStorage3x3] = useState();
     const [isComputerTurn, setIsComputerTurn] = useState(false);
@@ -20,10 +21,12 @@ function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
         setIsComputerTurn(false);
         
         while(1){
-            let random = Math.floor(Math.random() * 9);
-            if(boardStorage[random].value === -1){
-                updateBoardStorageHandler(computerInt, random);
-                break;
+            if(boardStorage.length !== 0) {
+                let random = Math.floor(Math.random() * 9);
+                if(boardStorage[random].value === -1){
+                    updateBoardStorageHandler(computerInt, random);
+                    break;
+                } 
             }
         }
     }
@@ -34,12 +37,14 @@ function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
     }
 
     const initBoardStorage = () => {
+        let tempArr = [];
         for(let i = 0; i < 9; i++) {
-            boardStorage.push({
+            tempArr.push({
                 value: -1,
                 location: i
             })
         }
+        setBoardStorage(tempArr);
     }
 
     const create3x3 = (arr) => {
@@ -64,6 +69,38 @@ function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
         setBoardSquaresFilled(boardSquaresFilled + 1);
     }
 
+    const updateScore = async (scoreType) => {
+        const base = 'https://tictactoe-julia.herokuapp.com/'
+
+        let data = {
+            userID: userId,
+            score: scoreType
+        };
+
+        try {
+            const response = await fetch(base + 'user/UpdateScore', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            })
+            const res = await response.json();
+
+            if(response.status !== 200) {
+                console.log("There is an error here!");
+                throw new Error(response.status);
+            }
+            else {
+                console.log('Success: ' + JSON.stringify(res, null, 4));
+            }
+        } 
+        catch(error) {
+            console.error("Error:", error);
+            return;
+        }
+    }
+
     const calcWinner = () => {
         const winConditions = [
             [0, 3, 6],
@@ -81,14 +118,14 @@ function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
             if(boardStorage[a].value !== -1 && boardStorage[b].value !== -1 && boardStorage[c].value !== -1) {
                 if((boardStorage[a].value === boardStorage[b].value) && (boardStorage[a].value === boardStorage[c].value)) {
                     if(boardStorage[a].value === humanInt) {
-                        console.log(humanInt);
                         setEndingType(1);
+                        updateScore(1);
                         setWins(wins + 1)
                         return 1;
                     }
                     else {
-                        console.log(humanInt);
                         setEndingType(0);
+                        updateScore(0);
                         setLosses(losses + 1)
                         return 0;
                     }
@@ -99,21 +136,19 @@ function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
     }
 
     const resetGame = () => {
-        localStorage.setItem('wins', wins);
-        localStorage.setItem('losses', losses);
-        localStorage.setItem('ties', ties);
-        window.location = '/';
-    }
+        setShowBoard(false);
+    } 
 
     useEffect(() => {
         initBoardStorage();
-        if(choice === "O"){
-            computerPlayer();
-        }
     }, []);
 
     useEffect(() => {
         if(boardStorage.length !== 0) {
+            if(boardSquaresFilled === 0 && choice === 'O') {
+                computerPlayer();
+            }
+
             create3x3(boardStorage);
 
             let winner = calcWinner();
@@ -127,11 +162,11 @@ function Board({ choice, wins, setWins, losses, setLosses, ties, setTies }) {
                 if(boardSquaresFilled === 9) {
                     setGameEnded(true)
                     setEndingType(2);
+                    updateScore(2)
                     setTies(ties + 1);
                 }
             }
         }
- 
     }, [boardStorage]);
 
   return (
