@@ -5,6 +5,7 @@ import Stack from 'react-bootstrap/Stack';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Board from './Board';
 import Scoreboard from './Scoreboard';
+import '../styles.css';
 
 function Choice({ userId, wins, setWins, losses, setLosses, ties, setTies }) {
     const [showBoard, setShowBoard] = useState(false);
@@ -43,27 +44,27 @@ function Choice({ userId, wins, setWins, losses, setLosses, ties, setTies }) {
         <>
         {!showBoard &&
              <Container fluid>
-                <Stack gap={3}>
-                <h3 className= 'text-center'>Choose a difficulty setting and then X or O</h3> 
-                <Dropdown className='text-center' onSelect={difficultyHandler}>
-                    <Dropdown.Toggle>
-                        {dropdownTitle}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item as='button' eventKey='0' value='Easy' onClick={dropdownTitleHandler}>Easy</Dropdown.Item>
-                        <Dropdown.Item as='button' eventKey='1' value='Hard' onClick={dropdownTitleHandler}>Hard</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Stack direction="horizontal" gap={3} className="col-md-.5 mx-auto">
-                    <Button onClick={xChoiceHandler}>
-                        X
-                    </Button>
-                    <Button onClick={oChoiceHandler}>
-                        O
-                    </Button>
+                <Stack gap={4}>
+                    <h3 className='choice-text text-center mt-5 pt-5'>Choose a difficulty setting and then X or O</h3> 
+                    <Dropdown className='text-center' onSelect={difficultyHandler}>
+                        <Dropdown.Toggle variant='dark' className='dropdown-button-size'>
+                            {dropdownTitle}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as='button' eventKey='0' value='Easy' onClick={dropdownTitleHandler} className='button-size'>Easy</Dropdown.Item>
+                            <Dropdown.Item as='button' eventKey='1' value='Hard' onClick={dropdownTitleHandler} className='button-size'>Hard</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Stack direction="horizontal" gap={4} className="col-md-.5 mx-auto">
+                        <Button variant='dark' className='choice-button-size' onClick={xChoiceHandler}>
+                            X
+                        </Button>
+                        <Button variant='dark' className='choice-button-size' onClick={oChoiceHandler}>
+                            O
+                        </Button>
+                    </Stack>
+                    <p className='topbar-brand text-center'>X will go first</p>    
                 </Stack>
-                </Stack>
-                <p className='text-center'>X will go first</p>    
             </Container>
         }
             

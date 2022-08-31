@@ -291,7 +291,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
                 </ButtonGroup>
             </div>
             <div className='text-center'>
-                <Button variant='dark' onClick={resetGame} className='topbar-buttons'>Reset Game</Button>
+                <Button variant='dark' onClick={resetGame} className='button-size'>Reset Game</Button>
             </div>
         </Stack>
     </Container>

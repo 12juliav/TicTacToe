@@ -1,4 +1,3 @@
-
 .blank-text {
     opacity: 0;
 }
@@ -9,12 +8,28 @@
     height: auto;
 }
 
+.choice-text {
+    font-size: 2rem;
+}
+
 .topbar-brand {
     font-size: 1.75rem; 
 }
 
-.topbar-buttons {
+.button-size {
     font-size: 1.25rem;
+}
+
+.choice-button-size {
+    font-size: 2rem;
+    width: 4rem;
+    height: 4rem;
+}
+
+.dropdown-button-size {
+    font-size: 1.5rem;
+    width: 10rem;
+    height: auto
 }
 
 .scoreboard {

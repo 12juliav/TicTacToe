@@ -106,7 +106,7 @@ function Register({ show, handleClose, setUserId, setWins, setLosses, setTies })
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={doRegister}>
+                <Button variant="dark" onClick={doRegister}>
                     Submit
                 </Button>
             </Modal.Footer>

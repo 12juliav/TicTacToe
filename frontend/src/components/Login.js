@@ -75,7 +75,7 @@ function Login({ show, handleClose, setUserId, setWins, setLosses, setTies }) {
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={doLogin}>
+                <Button variant="dark" onClick={doLogin}>
                     Submit
                 </Button>
             </Modal.Footer>

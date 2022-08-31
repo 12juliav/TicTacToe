@@ -23,10 +23,10 @@ function Topbar({ userId, setUserId, setWins, setLosses, setTies }) {
         <Navbar.Collapse>
           {!userId &&
             <Stack direction='horizontal' gap={2} className='ms-auto me-3'>
-              <Button variant='secondary' onClick={handleLoginOpen} className='topbar-buttons'>
+              <Button variant='secondary' onClick={handleLoginOpen} className='button-size'>
                 Login
               </Button>
-              <Button variant='secondary' onClick={handleRegisterOpen} className='topbar-buttons'>
+              <Button variant='secondary' onClick={handleRegisterOpen} className='button-size'>
                 Register
               </Button>
             </Stack>
