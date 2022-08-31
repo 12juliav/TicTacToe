@@ -1,0 +1,11 @@
+
+.blank-text {
+    opacity: 0;
+}
+
+.board-button-size {
+    font-size: 3rem;
+    width: 5rem;
+    height: auto;
+}
+
