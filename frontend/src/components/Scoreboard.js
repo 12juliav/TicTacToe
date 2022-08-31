@@ -5,6 +5,7 @@ import '../styles.css';
 
 function Scoreboard({ wins, losses, ties }) {
 
+    //Showing the wins, losses, and ties of a user
     return(
         <Container className='scoreboard mt-3'>
             <ListGroup variant='flush'>

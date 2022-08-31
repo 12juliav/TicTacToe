@@ -13,6 +13,7 @@ function Choice({ userId, wins, setWins, losses, setLosses, ties, setTies }) {
     const [choice, setChoice] = useState();
     const [dropdownTitle, setDropdownTitle] = useState('Difficulty');
 
+    //If user chooses X
     const xChoiceHandler = () => {
         if(difficulty !== -1) {
             setShowBoard(true);
@@ -22,6 +23,7 @@ function Choice({ userId, wins, setWins, losses, setLosses, ties, setTies }) {
             alert('Please choose a difficulty first')
         }
     }
+    //If user chooses O
     const oChoiceHandler = () => {
         if(difficulty !== -1) {
             setShowBoard(true);
@@ -31,15 +33,17 @@ function Choice({ userId, wins, setWins, losses, setLosses, ties, setTies }) {
             alert('Please choose a difficulty first')
         }
     }
-
+    //Difficulty chosen by user
     const difficultyHandler = (diff) => {
         setDifficulty(diff);
     }
 
+    //Dropdown title for difficulty
     const dropdownTitleHandler = (event) => {
         setDropdownTitle(event.target.value);
     }
 
+    //How a user can choose their difficulty and whether they want to be X or O
     return (
         <>
         {!showBoard &&

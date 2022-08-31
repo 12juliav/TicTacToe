@@ -10,14 +10,17 @@ function Results({ endingType }) {
   let modalTitle;
   let modalBody;
 
+  //The user lost
   if(endingType === 0){
     modalTitle = <Modal.Title>Loser :&#40;</Modal.Title>
     modalBody = <Modal.Body>You lost this game of Tic-Tac-Toe.</Modal.Body>
   }
+  //the user won
   else if(endingType === 1) {
     modalTitle = <Modal.Title>Winner!!!</Modal.Title>
     modalBody = <Modal.Body>You won this game of Tic-Tac-Toe!</Modal.Body>
   }
+  //The user tied with the computer
   else {
     modalTitle = <Modal.Title>Tie</Modal.Title>
     modalBody = <Modal.Body>You and your opponent tied in this game of Tic-Tac-Toe.</Modal.Body>

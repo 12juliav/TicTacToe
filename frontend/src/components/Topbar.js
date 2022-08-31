@@ -15,6 +15,7 @@ function Topbar({ userId, setUserId, setWins, setLosses, setTies }) {
   const handleRegisterOpen = () => setShowRegister(true);
   const handleRegisterClose = () => setShowRegister(false);
 
+  //Showing everything in topbar including the app name, login, and register buttons
   return (
     <>
       <Navbar bg="dark" variant='dark' expand="lg">

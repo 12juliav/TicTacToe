@@ -12,6 +12,7 @@ function Login({ show, handleClose, setUserId, setWins, setLosses, setTies }) {
     const usernameChangeHandler = (event) => setUsername(event.target.value);
     const passwordChangeHandler = (event) => setPassword(event.target.value);
 
+    //Login form that uses the login API
     const doLogin = async () => {
         const base = 'https://tictactoe-julia.herokuapp.com/'
 

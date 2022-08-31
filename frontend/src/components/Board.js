@@ -18,10 +18,12 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
     let humanInt = (choice === "X") ? 1 : 0;
     let computerInt = (choice === "X") ? 0 : 1;
     
+    //Calculations for determining where the computer will place its symbol
     const computerPlayer = () => {
         setIsComputerTurn(false);
         setTurnCount(turnCount + 1);
         
+        //if the user chooses easy difficulty computer will choose random location
         if(difficulty == 0) {
             while(1){
                 if(boardStorage.length !== 0) {
@@ -33,10 +35,15 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
                 }
             }
         }
+        //if user chooses hard difficulty there is an algorithm
         else {
+
+            //if computer goes turn one it places the X in top left 
             if(turnCount === 0 ) {
                 updateBoardStorageHandler(computerInt, 0);
             }
+
+            //If user goes turn one computer places in either the middle or top left depending on user choice
             else if(turnCount === 1) {
                 if(boardStorage[0].value === 1 || boardStorage[2].value === 1 || boardStorage[6].value === 1 || boardStorage[8].value === 1) {
                     updateBoardStorageHandler(computerInt, 4);
@@ -45,6 +52,8 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
                     updateBoardStorageHandler(computerInt, 0);
                 }
             }
+
+            //On the computer's second turn after going first it places in another corner
             else if(turnCount === 2) {
                 if(boardStorage[2].value === -1) {
                     updateBoardStorageHandler(computerInt, 2);
@@ -56,6 +65,8 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
                     updateBoardStorageHandler(computerInt, 8);
                 }
             }
+
+            //on any other turn the computer will check if it can finish/block a match of two if not it is random
             else if(turnCount >= 3) {
                 let isAlmostWinner = calcAlmostWinner();
                 if(isAlmostWinner !== -1) {
@@ -76,12 +87,14 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         }
     }
 
+    //The human player chooses their location
     const humanPlayer = (buttonLocation) => {
         setIsComputerTurn(true);
         setTurnCount(turnCount + 1);
         updateBoardStorageHandler(humanInt, buttonLocation);
     }
 
+    //Inititalize the empty board
     const initBoardStorage = () => {
         let tempArr = [];
         for(let i = 0; i < 9; i++) {
@@ -93,6 +106,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         setBoardStorage(tempArr);
     }
 
+    //Splitting boardStorage to be more compatible with board/ButtonGroups' re-renders
     const create3x3 = (arr) => {
         var cache = [];
         const temp = [...arr];
@@ -102,6 +116,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         setBoardStorage3x3(cache);
     }
 
+    //Puts either X or O in Board
     const updateBoardStorageHandler = (value, location) => {
         const updatedButton = {
             value: value,
@@ -115,6 +130,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         setBoardSquaresFilled(boardSquaresFilled + 1);
     }
 
+    //Updates the user's score via API
     const updateScore = async (scoreType) => {
         const base = 'https://tictactoe-julia.herokuapp.com/'
 
@@ -147,6 +163,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         }
     }
 
+    //Check for three in a row
     const calcWinner = () => {
         const winConditions = [
             [0, 3, 6],
@@ -185,6 +202,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         return -1;
     }
 
+    //checking for two and then determining what the third would be to make a match
     const calcAlmostWinner = () => {
         const almostWinConditions = [
             [0, 1, 2],
@@ -222,14 +240,17 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         return -1;
     }
 
+    //Resetting to choice screen
     const resetGame = () => {
         setShowBoard(false);
     } 
 
+    //initalizes boardStorage on page load
     useEffect(() => {
         initBoardStorage();
     }, []);
 
+    //useEffect triggered whenever boardStorage changes, handles calling other functions throughout game
     useEffect(() => {
         if(boardStorage.length !== 0) {
             if(boardSquaresFilled === 0 && choice === 'O') {
@@ -258,6 +279,7 @@ function Board({ choice, userId, wins, setWins, losses, setLosses, ties, setTies
         }
     }, [boardStorage]);
 
+    //board rendered using 3x3 ButtonGroups
   return (
     <>
     <Container className='mt-5'>

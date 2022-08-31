@@ -8,16 +8,12 @@
     height: auto;
 }
 
-.choice-text {
-    font-size: 2rem;
-}
-
-.topbar-brand {
-    font-size: 1.75rem; 
-}
-
 .button-size {
     font-size: 1.25rem;
+}
+
+.choice-text {
+    font-size: 2rem;
 }
 
 .choice-button-size {
@@ -35,6 +31,10 @@
 .scoreboard {
     max-width: 15rem;
     font-size: 1.5rem;
+}
+
+.topbar-brand {
+    font-size: 1.75rem; 
 }
 
 

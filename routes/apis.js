@@ -8,6 +8,7 @@ const client = new MongoClient(uri, {
 });
 client.connect();
 
+//login API
 exports.login = async function(req, res) {
     //incoming: username, password
     //outgoing: success status, id, wins/losses/ties
@@ -22,13 +23,11 @@ exports.login = async function(req, res) {
       db.collection('User').find({Username: username}).toArray();
   
       var PasswordDB = '';
-      var ID = '';
       var userInfo;
   
       if( result.length > 0 )
       {   
           PasswordDB = result[0].Password;
-          //ID = result[0]._id;
           userInfo = result[0];
       }
     }
@@ -37,7 +36,7 @@ exports.login = async function(req, res) {
         error = e.toString();
     }
   
-    bcrypt.compare(password, PasswordDB, function(err, results) {
+    bcrypt.compare(password, PasswordDB, function(err, results) {//comparing user typed password to encrypted password in DB
       var message = '';
   
       if(results) {
@@ -53,6 +52,7 @@ exports.login = async function(req, res) {
     });
   };
   
+  //register API
   exports.register = async function(req, res) {
     // incoming: username, password 
     // outgoing: error
@@ -67,7 +67,7 @@ exports.login = async function(req, res) {
     }
     else{
       var userID = new ObjectId();
-      bcrypt.hash(password, 10, function(err, hash) {
+      bcrypt.hash(password, 10, function(err, hash) {//encrypting password
       try
       {
         
@@ -93,6 +93,7 @@ exports.login = async function(req, res) {
     res.status(200).json(ret);
   };
 
+  //API to add one to either wins, losses, or ties depending on game outcome
 exports.UpdateScore = async function(req, res)
 {
   //incoming: userID, score

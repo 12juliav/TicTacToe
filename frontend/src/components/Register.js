@@ -14,6 +14,7 @@ function Register({ show, handleClose, setUserId, setWins, setLosses, setTies })
 
     const base = 'https://tictactoe-julia.herokuapp.com/'
 
+    //The register form that uses the register then login APIs
     const doRegister = async () => {
         let data = {
             username: username,
