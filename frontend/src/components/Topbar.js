@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
@@ -17,27 +18,30 @@ function Topbar({ userId, setUserId, setWins, setLosses, setTies }) {
 
   return (
     <>
+    <Container fluid>
       <Navbar bg="dark" variant='dark' expand="lg">
-        <Navbar.Brand href="/" className='ms-3 topbar-brand'>Tic-Tac-Toe</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
-          {!userId &&
-            <Stack direction='horizontal' gap={2} className='ms-auto me-3'>
-              <Button variant='secondary' onClick={handleLoginOpen} className='button-size'>
-                Login
-              </Button>
-              <Button variant='secondary' onClick={handleRegisterOpen} className='button-size'>
-                Register
-              </Button>
-            </Stack>
-          }
-          {userId &&
-            <Navbar.Text className='ms-auto me-3'>
-              Logged in!
-            </Navbar.Text>
-          }
-        </Navbar.Collapse>
-      </Navbar>
+          <Navbar.Brand href="/" className='ms-3 topbar-brand'>Tic-Tac-Toe</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse>
+            {!userId &&
+              <Stack direction='horizontal' gap={2} className='ms-auto me-3'>
+                <Button variant='secondary' onClick={handleLoginOpen} className='button-size'>
+                  Login
+                </Button>
+                <Button variant='secondary' onClick={handleRegisterOpen} className='button-size'>
+                  Register
+                </Button>
+              </Stack>
+            }
+            {userId &&
+              <Navbar.Text className='ms-auto me-3'>
+                Logged in!
+              </Navbar.Text>
+            }
+          </Navbar.Collapse>
+        </Navbar>
+    </Container>
+
 
       <Login 
         show={showLogin} 
