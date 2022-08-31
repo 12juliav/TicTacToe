@@ -12,10 +12,10 @@ app.use(express.json());
 app.use('/', routes);
 
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(process.cwd(), 'frontend', 'build')));
+	app.use(express.static(path.join(__basedir, 'frontend', 'build')));
 
 	app.get('*', (req, res) => {
-		res.sendFile(path.join(process.cwd(), 'frontend', 'build', 'index.html'))
+		res.sendFile(path.join(__basedir, 'frontend', 'build', 'index.html'))
 	});
 
 	app.use((req, res, next) => {
